@@ -49,32 +49,33 @@ def VER_TODAS_DOACOES():
 
 
 def CONSULTAR_POR_TIPO():
-        tipo = input('TIPO DE DOAÇÃO: ').strip().lower()
-        encontrou = False
-        for d in DOACOES:
-            if d['tipo'].strip().lower() == tipo:
-                print(
-                    f"ID: {d['id']} | DOADOR: {d['doador']} | QTD: {d['quantidade']} | DATA: {d['data']} | ENTREGUE: {'SIM' if d['entregue'] else 'NÃO'}")
-                encontrou = True
-        if not encontrou: print(f'NENHUMA DOAÇÃO DO TIPO "{tipo.upper()}" ENCONTRADA.')
+      tipo = input('TIPO DE DOAÇÃO: ').strip().lower()
+encontrou = False
+for i in range(len(DOACOES)):
+    if DOACOES[i]['tipo'].strip().lower() == tipo:
+        print(f"ID: {DOACOES[i]['id']} | DOADOR: {DOACOES[i]['doador']} | QTD: {DOACOES[i]['quantidade']} | DATA: {DOACOES[i]['data']} | ENTREGUE: {'SIM' if DOACOES[i]['entregue'] else 'NÃO'}")
+        encontrou = True
+if not encontrou:
+    print(f'NENHUMA DOAÇÃO DO TIPO "{tipo.upper()}" ENCONTRADA.')
+
 
 
 def MARCAR_COMO_ENTREGUE():
     print(f'{CIANO_CLARO}--- MARCAR DOAÇÃO COMO ENTREGUE ---{RESET}')
     try:
-        ID_BUSCA = int(input(f'{AZUL_CLARO}DIGITE O ID DA DOAÇÃO QUE FOI ENTREGUE: '))
-        for D in DOACOES:
-            if D[f'id'] == ID_BUSCA:
-                D[f'entregue{RESET}'] = True
-                print(f'{AMARELO_CLARO}✅ DOAÇÃO MARCADA COMO ENTREGUE!{RESET}')
-                print('\n')
-                return
-        print(f'{VERMELHO_CLARO}ID NÃO ENCONTRADO.')
-        print('\n')
-    except ValueError:
-        print(f'ID INVÁLIDO.{RESET}')
-
-
+    ID_BUSCA = int(input(f'{AZUL_CLARO}DIGITE O ID DA DOAÇÃO QUE FOI ENTREGUE: '))
+    encontrou = False
+    for i in range(len(DOACOES)):
+        if DOACOES[i]['id'] == ID_BUSCA:
+            DOACOES[i]['entregue'] = True
+            encontrou = True
+            print(f'{AMARELO_CLARO}✅ DOAÇÃO MARCADA COMO ENTREGUE!{RESET}')
+            print('\n')
+            break
+    if not encontrou:
+        print(f'{VERMELHO_CLARO}ID NÃO ENCONTRADO.\n')
+except ValueError:
+    print(f'ID INVÁLIDO.{RESET}')
 
 def MENU():
     while True:
